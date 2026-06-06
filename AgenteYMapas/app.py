@@ -1,5 +1,8 @@
 import os
 import json
+from dotenv import load_dotenv
+
+load_dotenv()
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -162,8 +165,7 @@ def resume_conversation(user_proxy: UserProxyAgent, assistant: AssistantAgent, h
             user_proxy._oai_messages[assistant].append(ast_msg)
             assistant._oai_messages[user_proxy].append(ast_msg)
 
-# Clave API de OpenRouter por defecto (proporcionada por el usuario)
-DEFAULT_OPENROUTER_KEY = "REMOVED_FROM_HISTORY"
+DEFAULT_OPENROUTER_KEY = os.getenv("OPENROUTER_API_KEY", "")
 
 @app.post("/api/chat")
 async def chat_endpoint(request: ChatRequest):
