@@ -1,0 +1,8 @@
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  appinio_swiper: ^2.0.0
+  google_generative_ai: ^0.2.2
+  firebase_core: ^2.27.0        # NUEVO
+  cloud_firestore: ^4.15.8      # NUEVO
