@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DurangoGuía IA - Experto en Durango, México</title>
+    <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Vanilla CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Marked.js for Markdown Rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar with info and quick recommendations -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon"><i class="fa-solid fa-scorpion text-gradient">🦂</i></span>
+                    <div class="logo-text">
+                        <h1>DurangoGuía <span class="badge">IA</span></h1>
+                        <p>Agente AutoGen & OpenRouter</p>
+                    </div>
+                </div>
+                <button class="close-sidebar-btn" id="closeSidebarBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="sidebar-content">
+                <div class="card info-card">
+                    <h3><i class="fa-solid fa-map-location-dot"></i> Durango, México</h3>
+                    <p>La "Tierra del Cine" y del mezcal. Capital colonial de la Sierra Madre Occidental, rica en historia, leyendas y paisajes naturales.</p>
+                </div>
+
+                <div class="card key-card" id="apiKeyCard">
+                    <h3><i class="fa-solid fa-key"></i> Clave API de OpenRouter</h3>
+                    <p>Ingresa tu API Key personal si deseas usar tus propios créditos (opcional, el servidor tiene una activa por defecto):</p>
+                    <div class="input-group">
+                        <input type="password" id="apiKeyInput" placeholder="sk-or-v1-..." />
+                        <button id="saveKeyBtn" class="btn btn-primary-gradient" title="Guardar Clave"><i class="fa-solid fa-floppy-disk"></i></button>
+                    </div>
+                    <p class="key-status text-muted" id="keyStatusText">Estado: Usando clave del servidor 🟢</p>
+                </div>
+
+                <div class="quick-links">
+                    <h3>💡 Temas Especiales</h3>
+                    <ul class="quick-topics-list">
+                        <li><button class="topic-btn" data-prompt="Recomiéndame dónde comer el mejor Caldillo Duranguense tradicional y en qué consiste"><i class="fa-solid fa-bowl-food"></i> Gastronomía Típica</button></li>
+                        <li><button class="topic-btn" data-prompt="¿Qué atractivos turísticos recomiendas en el Centro Histórico y cómo funciona el Teleférico?"><i class="fa-solid fa-cable-car"></i> Turismo en la Ciudad</button></li>
+                        <li><button class="topic-btn" data-prompt="¿Dónde puedo comprar artesanías de alacranes encapsulados y qué otras artesanías locales hay en Durango?"><i class="fa-solid fa-store"></i> Artesanías y Mercados</button></li>
+                        <li><button class="topic-btn" data-prompt="Háblame de atractivos naturales fuera de la ciudad como Mexiquillo y qué actividades de ocio se pueden hacer allí"><i class="fa-solid fa-tree"></i> Ecoturismo y Sierra</button></li>
+                        <li><button class="topic-btn" data-prompt="Cuéntame la famosa leyenda de la Monja de la Catedral de Durango"><i class="fa-solid fa-book-open"></i> Leyendas Locales</button></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <p>&copy; 2026 DurangoGuía IA</p>
+                <p>Pair Programming with OpenRouter</p>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-area">
+            <!-- Header -->
+            <header class="chat-header">
+                <div class="header-left">
+                    <button class="menu-btn" id="menuBtn"><i class="fa-solid fa-bars"></i></button>
+                    <div class="agent-info">
+                        <div class="agent-avatar">
+                            <i class="fa-solid fa-compass"></i>
+                            <span class="status-indicator online"></span>
+                        </div>
+                        <div>
+                            <h2>Guía Turístico de Durango</h2>
+                            <p class="status-text">Especialista en Gastronomía, Ocio y Negocios Locales</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button id="clearChatBtn" class="btn btn-icon" title="Limpiar chat"><i class="fa-solid fa-trash-can"></i></button>
+                    <button id="toggleThemeBtn" class="btn btn-icon" title="Alternar tema"><i class="fa-solid fa-moon"></i></button>
+                </div>
+            </header>
+
+            <!-- Message Container -->
+            <section class="messages-container" id="messagesContainer">
+                <!-- Welcome Message -->
+                <div class="welcome-container" id="welcomeContainer">
+                    <div class="welcome-icon">🦂</div>
+                    <h2>¡Hola! Planeemos tu viaje a Durango</h2>
+                    <p>Soy tu agente inteligente especializado en turismo, gastronomía y ocio en Durango, Durango, México. Para poder darte las mejores sugerencias personalizadas, por favor cuéntame un poco más:</p>
+                    
+                    <ul style="text-align: left; margin: 10px 0 20px 0; color: var(--text-secondary); font-size: 13.5px; display: inline-block;">
+                        <li>🕒 <strong>¿Cuánto tiempo tienes disponible?</strong> (ej. unas horas, un día entero, un fin de semana)</li>
+                        <li>🎯 <strong>¿Qué te gustaría hacer?</strong> (preferencias: cultura, comida tradicional, caminatas, aventura en la sierra)</li>
+                        <li>👥 <strong>¿Con quién viajas?</strong> (ej. solo, en familia con niños, en pareja, con amigos)</li>
+                    </ul>
+
+                    <p>O si lo prefieres, elige una de las opciones rápidas para comenzar la planeación:</p>
+                    
+                    <div class="suggested-prompts-grid">
+                        <button class="suggested-prompt-btn" data-prompt="Tengo solo unas pocas horas libres y quiero comer algo tradicional y ver lo principal del Centro Histórico.">
+                            <i class="fa-solid fa-clock"></i>
+                            <span>Tengo unas horas libres</span>
+                        </button>
+                        <button class="suggested-prompt-btn" data-prompt="Vengo por un fin de semana entero con mi familia y niños. Queremos ver shows y actividades divertidas.">
+                            <i class="fa-solid fa-people-group"></i>
+                            <span>Fin de semana familiar</span>
+                        </button>
+                        <button class="suggested-prompt-btn" data-prompt="Tengo un día completo y me gustaría ir a la sierra, ver cascadas y paisajes naturales. ¿Qué me recomiendas?">
+                            <i class="fa-solid fa-mountain-sun"></i>
+                            <span>Un día de Ecoturismo/Sierra</span>
+                        </button>
+                        <button class="suggested-prompt-btn" data-prompt="Quiero hacer un tour enfocado en gastronomía típica y compras de artesanías locales. ¿Adónde voy?">
+                            <i class="fa-solid fa-utensils"></i>
+                            <span>Gastronomía y Artesanías</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Typing indicator -->
+            <div class="typing-indicator-wrapper" id="typingIndicator">
+                <div class="agent-bubble-avatar"><i class="fa-solid fa-scorpion">🦂</i></div>
+                <div class="typing-indicator">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <!-- Input Bar -->
+            <footer class="chat-footer">
+                <form class="input-form" id="inputForm">
+                    <input type="text" id="userInput" placeholder="Pregunta sobre Durango (ej. ¿Qué comer?, ¿Qué hacer?, leyendas...)" autocomplete="off" required>
+                    <button type="submit" class="btn btn-primary-gradient" id="sendBtn">
+                        <span>Enviar</span>
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+                <div class="api-key-warning" id="apiKeyWarning">
+                    <i class="fa-solid fa-info-circle"></i> Usando la Clave API de OpenRouter por defecto.
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- JavaScript code -->
+    <script src="app.js"></script>
+</body>
+</html>
